@@ -158,7 +158,7 @@
                             <span class="script-font text-6xl text-blue-theme">22</span>
                         </div>
                         <div class="flex-1 text-center py-2 border-t border-b border-gold-theme mx-2">
-                            <span class="serif-font text-sm tracking-widest text-blue-theme">16:00 P. M.</span>
+                            <span class="serif-font text-sm tracking-widest text-blue-theme">5:00 P. M.</span>
                         </div>
                     </div>
                 </div>
@@ -171,9 +171,9 @@
             <!-- ====== MIS PADRES ====== -->
             <section class="py-16 text-center px-6">
                 <h3 class="serif-font text-sm tracking-[0.2em] uppercase mb-4 text-[#87a0b9]">Con la bendición de mis padres</h3>
-                <p class="script-font text-5xl text-blue-theme">Wendy Veroníca</p>
-                <p class="script-font text-3xl text-gold-theme my-2">&</p>
-                <p class="script-font text-5xl text-blue-theme">Edgar Eduardo</p>
+                <p class="script-font text-5xl text-blue-theme">Edgar Lopez</p>
+                <p class="script-font text-3xl text-gold-theme my-2">Y</p>
+                <p class="script-font text-5xl text-blue-theme">Wendy Garcia</p>
             </section>
 
             <!-- Separador Floral -->
@@ -191,7 +191,9 @@
 
                 <div class="serif-font text-sm tracking-widest leading-loose text-blue-theme mb-6">
                     <p class="font-semibold">Restaurante Los Cebollines</p>
-                    <p>22 de noviembre a las 4:00 P.M.</p>
+                    <p class="font-medium">Salón Cuernavaca</p>
+                    <p>22 de noviembre a las 5:00 P.M.</p>
+                    <p class="text-xs mt-2 font-bold text-blue-theme">Por favor ser puntuales.</p>
                     <p class="text-xs mt-2 text-[#87a0b9] leading-relaxed">JF2P+CPH, Zona 10<br>Cdad. de Guatemala 01010</p>
                 </div>
 
@@ -215,6 +217,7 @@
 
                 <div class="serif-font text-sm tracking-widest leading-loose text-blue-theme mb-6">
                     <p class="font-semibold">Restaurante Los Cebollines</p>
+                    <p class="font-medium">Salón Cuernavaca</p>
                     <p>Después de la ceremonia religiosa</p>
                     <p class="text-xs mt-2 text-[#87a0b9] leading-relaxed">JF2P+CPH, Zona 10<br>Cdad. de Guatemala 01010</p>
                 </div>
@@ -222,6 +225,25 @@
                 <a href="https://www.google.com/maps/search/?api=1&query=Restaurante+Los+Cebollines,+Zona+10,+Cdad.+de+Guatemala" target="_blank" class="inline-block bg-transparent border border-gold-theme text-gold-theme px-8 py-3 rounded-full serif-font text-xs tracking-widest uppercase hover:bg-[#d4be84] hover:text-white transition-colors">
                     Abrir Mapa <i class="fa-solid fa-map-location-dot ml-2"></i>
                 </a>
+            </section>
+
+            <!-- Separador Floral -->
+            <div class="flex justify-center my-8 opacity-50">
+                <i class="fa-solid fa-leaf text-gold-theme"></i>
+            </div>
+
+            <!-- ====== REGALO ====== -->
+            <section class="py-12 text-center px-6">
+                <h2 class="script-font text-6xl text-blue-theme mb-6">Mesa de Regalos</h2>
+                
+                <div class="w-16 h-16 mx-auto border border-gold-theme rounded-full flex items-center justify-center mb-6">
+                    <i class="fa-solid fa-envelope text-2xl text-gold-theme"></i>
+                </div>
+
+                <div class="serif-font text-sm leading-loose text-blue-theme">
+                    <p class="mb-4">Lo que más deseamos es compartir esta alegría contigo. Si nace de tu corazón hacerle un obsequio a Maria Jose te agradecemos tu muestra de cariño en la modalidad de sobre.</p>
+                    <p class="font-semibold text-xs tracking-widest uppercase">Los sobres los encontrarán en la mesa en que serán asignados.</p>
+                </div>
             </section>
 
             <!-- ====== RSVP / DESPEDIDA ====== -->
@@ -388,6 +410,17 @@
             console.log(`Guardado: ${invitadoActual.nombre} confirmó ${asisten} pases.`);
             pasoConfirmacion.classList.add('hidden');
             pasoExito.classList.remove('hidden');
+
+            let mensaje = '';
+            if (asisten === "0") {
+                mensaje = `Hola, soy ${invitadoActual.nombre}. Lamentablemente no podré asistir a los XV años de María José.`;
+            } else {
+                mensaje = `¡Hola! Soy ${invitadoActual.nombre}. Confirmo mi asistencia a los XV años de María José para ${asisten} persona(s).`;
+            }
+            // Cambia este número por el tuyo. Ej: 502 (Guatemala) seguido del número
+            const numeroWhatsApp = "50200000000"; 
+            const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
+            window.open(url, '_blank');
         }
 
         // --- LÓGICA DE MÚSICA ---

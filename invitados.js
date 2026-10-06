@@ -1,22 +1,28 @@
 const invitadosData = [
-  {
-    "id": "fam-garcia",
-    "nombre": "Familia García Pérez",
-    "pases_totales": 4
-  },
-  {
-    "id": "fam-garcia",
-    "nombre": "Familia García López",
-    "pases_totales": 4
-  },
-  {
-    "id": "juan-lopez",
-    "nombre": "Juan López",
-    "pases_totales": 1
-  },
-  {
-    "id": "fam-martinez",
-    "nombre": "Familia Martínez",
-    "pases_totales": 3
-  }
+  { "id": "fam-lopez-garcia", "nombre": "Familia Lopez Garcia", "pases_totales": 4 },
+  { "id": "fam-garcia-monterroso", "nombre": "Familia Garcia Monterroso", "pases_totales": 5 },
+  { "id": "fam-garcia-rodriguez", "nombre": "Familia Garcia Rodriguez", "pases_totales": 3 },
+  { "id": "fam-jimenez-monterroso", "nombre": "Familia Jimenez Monterroso", "pases_totales": 3 },
+  { "id": "fam-jimenez-chavez", "nombre": "Familia Jimenez Chavez", "pases_totales": 3 },
+  { "id": "fam-jimenez-santos", "nombre": "Familia Jimenez Santos", "pases_totales": 3 },
+  { "id": "fam-monterroso-jimenez", "nombre": "Familia Monterroso Jimenez", "pases_totales": 2 },
+  { "id": "fam-quex-monterroso", "nombre": "Familia Quex Monterroso", "pases_totales": 5 },
+  { "id": "fam-monterroso-col", "nombre": "Familia Monterroso Col", "pases_totales": 2 },
+  { "id": "fam-gomez-jimenez", "nombre": "Familia Gomez Jimenez", "pases_totales": 2 },
+  { "id": "fam-hernandez-lima", "nombre": "Familia Hernandez Lima", "pases_totales": 4 },
+  { "id": "fam-lopez-contreras-1", "nombre": "Familia Lopez Contreras 1", "pases_totales": 4 },
+  { "id": "fam-lopez-contreras-2", "nombre": "Familia Lopez Contreras 2", "pases_totales": 4 },
+  { "id": "fam-lopez-cartagena", "nombre": "Familia Lopez Cartagena", "pases_totales": 2 },
+  { "id": "fam-lopez-moreida", "nombre": "Familia Lopez Moreida", "pases_totales": 4 },
+  { "id": "fam-lopez-castro", "nombre": "Familia Lopez Castro", "pases_totales": 5 },
+  { "id": "fam-vasquez-martinez", "nombre": "Familia Vasquez Martinez", "pases_totales": 4 },
+  { "id": "fam-say-muralles", "nombre": "Familia Say Muralles", "pases_totales": 5 },
+  { "id": "fam-orozco-monterroso", "nombre": "Familia Orozco Monterroso", "pases_totales": 5 },
+  { "id": "maria-jose-rivera", "nombre": "Maria Jose Rivera Garcia", "pases_totales": 1 },
+  { "id": "mariita-casa", "nombre": "Mariita casa alquilan", "pases_totales": 3 },
+  { "id": "fam-perez-perez", "nombre": "Familia Perez Perez", "pases_totales": 3 },
+  { "id": "vilma-perez", "nombre": "Vilma Perez", "pases_totales": 1 },
+  { "id": "katherin-contreras", "nombre": "Katherin Contreras", "pases_totales": 2 },
+  { "id": "fam-perez-espinoza", "nombre": "Familia Perez Espinoza", "pases_totales": 2 },
+  { "id": "odilia-martinez", "nombre": "Odilia Martinez", "pases_totales": 1 }
 ];

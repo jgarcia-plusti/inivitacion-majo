@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XV Años María José</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #ffffff;
+            /* Acuarela suave en el fondo general */
+            background-image: 
+                radial-gradient(circle at 0% 100%, rgba(135, 180, 220, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 100% 0%, rgba(135, 180, 220, 0.1) 0%, transparent 40%);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            color: #5a7fa4;
+        }
+
+        .invitation-container {
+            max-width: 450px;
+            margin: 0 auto;
+            background-color: transparent;
+            position: relative;
+            min-height: 100vh;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(0,0,0,0.05);
+            background-color: #fff;
+        }
+
+        .text-blue-theme { color: #5a7fa4; }
+        .text-gold-theme { color: #d4be84; }
+        .border-gold-theme { border-color: #d4be84; }
+        .bg-gold-theme { background-color: #d4be84; }
+
+        .script-font {
+            font-family: 'Great Vibes', cursive;
+        }
+
+        .serif-font {
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Imágenes Absolutas para decorar */
+        .floral-top-left {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 80%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .floral-bottom-right {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 90%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .gold-splatters {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0; left: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><circle cx="85%" cy="25%" r="3" fill="%23d4be84" opacity="0.6"/><circle cx="90%" cy="22%" r="1.5" fill="%23d4be84" opacity="0.8"/><circle cx="82%" cy="20%" r="2" fill="%23d4be84" opacity="0.5"/><circle cx="88%" cy="28%" r="2.5" fill="%23d4be84" opacity="0.7"/><circle cx="15%" cy="75%" r="3" fill="%23d4be84" opacity="0.6"/><circle cx="10%" cy="72%" r="1.5" fill="%23d4be84" opacity="0.8"/><circle cx="18%" cy="80%" r="2" fill="%23d4be84" opacity="0.5"/><circle cx="12%" cy="78%" r="2.5" fill="%23d4be84" opacity="0.7"/></svg>');
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .content-layer {
+            position: relative;
+            z-index: 10;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        /* Animación suave al cargar */
+        .fade-in {
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn-confirm {
+            background-color: #5a7fa4;
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            margin-top: 1.5rem;
+            box-shadow: 0 4px 15px rgba(90, 127, 164, 0.3);
+        }
+        .btn-confirm:hover {
+            background-color: #486989;
+        }
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="invitation-container">
+        
+        <!-- Elementos Decorativos (Capas de Canva) -->
+        
+        <!-- Nubes Acuarela (Fondo) -->
+        <img src="source/element4.png" alt="Acuarela Superior" class="absolute top-0 right-0 w-[90%] md:w-[70%] pointer-events-none z-0">
+        <img src="source/element5.png" alt="Acuarela Inferior" class="absolute bottom-0 left-0 w-[90%] md:w-[70%] pointer-events-none z-0">
+        
+        <!-- Salpicaduras Doradas -->
+        <img src="source/element2.png" alt="Gold Splatter" class="absolute top-0 right-0 w-[60%] pointer-events-none z-0">
+        <img src="source/element3.png" alt="Gold Splatter" class="absolute bottom-20 left-0 w-[60%] pointer-events-none z-0">
+
+        <!-- Flores Principales -->
+        <img src="source/element6.png" alt="Flores Arriba" class="absolute top-0 left-0 w-[65%] md:w-[50%] pointer-events-none z-10">
+        <img src="source/element1.png" alt="Flores Abajo" class="absolute bottom-0 right-0 w-[75%] md:w-[60%] pointer-events-none z-10">
+
+        <!-- Contenido Central (Secciones) -->
+        <div class="relative z-20">
+            
+            <!-- ====== PORTADA ====== -->
+            <section class="flex flex-col items-center justify-center min-h-[95vh] text-center px-4 pt-10 pb-8 fade-in">
+                
+                <div class="mb-4">
+                    <h1 class="script-font text-[7rem] leading-none text-blue-theme" style="margin-bottom: -1.5rem;">XV</h1>
+                    <h2 class="script-font text-5xl text-blue-theme">años</h2>
+                </div>
+
+                <h3 class="script-font text-5xl text-blue-theme mb-6">María José</h3>
+
+                <p class="script-font text-2xl text-blue-theme leading-relaxed px-4 mb-8">
+                    Hay historias y personas que no voy a olvidar y recuerdos como este que siempre voy a guardar.<br>
+                    Porque son parte de mi vida es mi deseo que compartan conmigo en este día tan especial.
+                </p>
+
+                <div class="w-full flex flex-col items-center mb-8">
+                    <div class="serif-font text-xl tracking-widest text-blue-theme mb-2">NOV.</div>
+                    <div class="flex items-center justify-center w-full max-w-[320px]">
+                        <div class="flex-1 text-center py-2 border-t border-b border-gold-theme mx-2">
+                            <span class="serif-font text-sm tracking-widest text-blue-theme">DOMINGO</span>
+                        </div>
+                        <div class="px-2">
+                            <span class="script-font text-6xl text-blue-theme">22</span>
+                        </div>
+                        <div class="flex-1 text-center py-2 border-t border-b border-gold-theme mx-2">
+                            <span class="serif-font text-sm tracking-widest text-blue-theme">16:00 P. M.</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4 animate-bounce text-gold-theme">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+            </section>
+
+            <!-- ====== MIS PADRES ====== -->
+            <section class="py-16 text-center px-6">
+                <h3 class="serif-font text-sm tracking-[0.2em] uppercase mb-4 text-[#87a0b9]">Con la bendición de mis padres</h3>
+                <p class="script-font text-5xl text-blue-theme">Wendy Veroníca</p>
+                <p class="script-font text-3xl text-gold-theme my-2">&</p>
+                <p class="script-font text-5xl text-blue-theme">Edgar Eduardo</p>
+            </section>
+
+            <!-- Separador Floral -->
+            <div class="flex justify-center my-4 opacity-50">
+                <i class="fa-solid fa-leaf text-gold-theme"></i>
+            </div>
+
+            <!-- ====== CEREMONIA RELIGIOSA ====== -->
+            <section class="py-12 text-center px-6">
+                <h2 class="script-font text-6xl text-blue-theme mb-6">Ceremonia</h2>
+                
+                <div class="w-16 h-16 mx-auto border border-gold-theme rounded-full flex items-center justify-center mb-6">
+                    <i class="fa-solid fa-church text-2xl text-gold-theme"></i>
+                </div>
+
+                <div class="serif-font text-sm tracking-widest leading-loose text-blue-theme mb-6">
+                    <p class="font-semibold">Restaurante Los Cebollines</p>
+                    <p>22 de noviembre a las 4:00 P.M.</p>
+                    <p class="text-xs mt-2 text-[#87a0b9] leading-relaxed">JF2P+CPH, Zona 10<br>Cdad. de Guatemala 01010</p>
+                </div>
+
+                <a href="https://www.google.com/maps/search/?api=1&query=Restaurante+Los+Cebollines,+Zona+10,+Cdad.+de+Guatemala" target="_blank" class="inline-block bg-transparent border border-gold-theme text-gold-theme px-8 py-3 rounded-full serif-font text-xs tracking-widest uppercase hover:bg-[#d4be84] hover:text-white transition-colors">
+                    Abrir Mapa <i class="fa-solid fa-map-location-dot ml-2"></i>
+                </a>
+            </section>
+
+            <!-- Separador Floral -->
+            <div class="flex justify-center my-8 opacity-50">
+                <i class="fa-solid fa-leaf text-gold-theme"></i>
+            </div>
+
+            <!-- ====== RECEPCIÓN ====== -->
+            <section class="py-12 text-center px-6">
+                <h2 class="script-font text-6xl text-blue-theme mb-6">Recepción</h2>
+                
+                <div class="w-16 h-16 mx-auto border border-gold-theme rounded-full flex items-center justify-center mb-6">
+                    <i class="fa-solid fa-champagne-glasses text-2xl text-gold-theme"></i>
+                </div>
+
+                <div class="serif-font text-sm tracking-widest leading-loose text-blue-theme mb-6">
+                    <p class="font-semibold">Restaurante Los Cebollines</p>
+                    <p>Después de la ceremonia religiosa</p>
+                    <p class="text-xs mt-2 text-[#87a0b9] leading-relaxed">JF2P+CPH, Zona 10<br>Cdad. de Guatemala 01010</p>
+                </div>
+
+                <a href="https://www.google.com/maps/search/?api=1&query=Restaurante+Los+Cebollines,+Zona+10,+Cdad.+de+Guatemala" target="_blank" class="inline-block bg-transparent border border-gold-theme text-gold-theme px-8 py-3 rounded-full serif-font text-xs tracking-widest uppercase hover:bg-[#d4be84] hover:text-white transition-colors">
+                    Abrir Mapa <i class="fa-solid fa-map-location-dot ml-2"></i>
+                </a>
+            </section>
+
+            <!-- ====== RSVP / DESPEDIDA ====== -->
+            <section class="py-16 text-center px-6 pb-32">
+                <div class="script-font text-2xl text-blue-theme mb-4">
+                    Rsvp: (55) 1234-5678
+                </div>
+
+                <div class="script-font text-5xl text-blue-theme mb-10">
+                    ¡Te esperamos!
+                </div>
+
+                <button onclick="abrirModal()" class="btn-confirm relative z-20 uppercase tracking-widest text-xs px-8 py-4">Confirmar Asistencia</button>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Etiqueta de Audio para la Música de Fondo -->
+    <audio id="bg-music" loop>
+        <source src="source/cancion.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Botón Flotante de Música -->
+    <button onclick="toggleMusic(event)" class="fixed bottom-6 right-6 w-12 h-12 bg-white border border-[#5a7fa4] text-[#5a7fa4] rounded-full shadow-lg flex items-center justify-center z-50 hover:bg-gray-50 transition-all">
+        <i id="music-btn-icon" class="fa-solid fa-volume-xmark text-lg"></i>
+    </button>
+
+    <!-- Modal de Confirmación -->
+    <div id="modalConfirmacion" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center backdrop-blur-sm transition-opacity">
+        <div class="bg-white w-11/12 max-w-md rounded-2xl shadow-2xl p-8 relative border-2 border-gold-theme">
+            <button onclick="cerrarModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+                <i class="fa-solid fa-times text-xl"></i>
+            </button>
+            
+            <h3 class="script-font text-4xl mb-2 text-center text-blue-theme">Confirmar Asistencia</h3>
+            <p class="text-sm text-gray-500 text-center mb-6 font-light">Busca tu nombre en la lista de invitados</p>
+
+            <!-- Paso 1 -->
+            <div id="paso-busqueda">
+                <input type="text" id="inputBusqueda" placeholder="Ej. Familia García" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-1 focus:ring-[#5a7fa4] focus:border-[#5a7fa4] outline-none transition-all mb-3 font-light text-gray-700">
+                <button onclick="buscarInvitado()" class="w-full bg-[#5a7fa4] hover:bg-[#486989] text-white py-3 rounded-lg transition-colors serif-font text-xs tracking-widest uppercase">Buscar Invitación</button>
+                <div id="mensaje-error" class="text-red-400 text-sm mt-3 text-center hidden">No se encontró ninguna invitación con ese nombre.</div>
+                
+                <!-- Resultados Múltiples -->
+                <div id="lista-resultados" class="mt-4 flex flex-col gap-2 max-h-48 overflow-y-auto hidden scrollbar-thin"></div>
+            </div>
+
+            <!-- Paso 2 -->
+            <div id="paso-confirmacion" class="hidden">
+                <div class="bg-blue-50/50 p-4 rounded-lg border border-blue-100 mb-4 text-center">
+                    <p class="text-gray-500 text-sm mb-1">Invitación para:</p>
+                    <p id="nombre-encontrado" class="script-font text-3xl text-blue-theme mb-2"></p>
+                    <p class="text-sm text-gray-500">Pases asignados: <span id="pases-totales" class="font-bold text-blue-theme"></span></p>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-sm text-gray-600 mb-2">¿Cuántas personas asistirán?</label>
+                    <select id="select-asistentes" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-1 focus:ring-[#5a7fa4] outline-none font-light text-gray-700 bg-white">
+                    </select>
+                </div>
+
+                <div class="flex gap-2">
+                    <button onclick="volverBusqueda()" class="w-1/3 border border-gray-300 text-gray-600 py-3 rounded-lg hover:bg-gray-50 transition-colors serif-font text-xs tracking-widest uppercase">Cancelar</button>
+                    <button onclick="enviarConfirmacion()" class="w-2/3 bg-gold-theme hover:bg-[#c2aa5b] text-white py-3 rounded-lg transition-colors serif-font text-xs tracking-widest uppercase">Confirmar</button>
+                </div>
+            </div>
+
+            <!-- Paso 3 -->
+            <div id="paso-exito" class="hidden text-center py-6">
+                <i class="fa-solid fa-circle-check text-5xl text-[#5a7fa4] mb-4"></i>
+                <h4 class="serif-font text-xl font-medium text-blue-theme mb-2">¡Gracias por confirmar!</h4>
+                <p class="text-gray-500 font-light text-sm mb-6">Te esperamos para celebrar este gran día.</p>
+                <button onclick="cerrarModal()" class="bg-[#5a7fa4] hover:bg-[#486989] text-white px-8 py-3 rounded-lg serif-font text-xs tracking-widest uppercase transition-colors">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cargar base de datos de invitados -->
+    <script src="invitados.js"></script>
+
+    <script>
+        // --- LÓGICA DEL MODAL ---
+        let listaInvitados = invitadosData || []; // Cargado desde invitados.js
+        let invitadoActual = null;
+
+        const modal = document.getElementById('modalConfirmacion');
+        const pasoBusqueda = document.getElementById('paso-busqueda');
+        const pasoConfirmacion = document.getElementById('paso-confirmacion');
+        const pasoExito = document.getElementById('paso-exito');
+        const inputBusqueda = document.getElementById('inputBusqueda');
+        const mensajeError = document.getElementById('mensaje-error');
+        const listaResultados = document.getElementById('lista-resultados');
+
+        function abrirModal() { modal.classList.remove('hidden'); volverBusqueda(); }
+        function cerrarModal() { modal.classList.add('hidden'); }
+
+        // Función para quitar acentos y hacer la búsqueda más tolerante
+        function normalizarTexto(texto) {
+            return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+        }
+
+        function buscarInvitado() {
+            const busqueda = normalizarTexto(inputBusqueda.value);
+            if (!busqueda) return;
+
+            // Filtrar todos los que coincidan
+            const resultados = listaInvitados.filter(invitado => 
+                normalizarTexto(invitado.nombre).includes(busqueda)
+            );
+
+            listaResultados.innerHTML = '';
+
+            if (resultados.length > 0) {
+                mensajeError.classList.add('hidden');
+                listaResultados.classList.remove('hidden');
+
+                // Crear un botón por cada resultado
+                resultados.forEach(invitado => {
+                    const btn = document.createElement('button');
+                    btn.className = "w-full text-left px-4 py-3 bg-blue-50/40 hover:bg-blue-100/60 border border-blue-100 rounded-lg text-sm text-[#5a7fa4] transition-colors";
+                    btn.textContent = invitado.nombre;
+                    btn.onclick = () => seleccionarInvitado(invitado);
+                    listaResultados.appendChild(btn);
+                });
+            } else {
+                mensajeError.classList.remove('hidden');
+                listaResultados.classList.add('hidden');
+            }
+        }
+
+        function seleccionarInvitado(invitado) {
+            invitadoActual = invitado;
+            mostrarConfirmacion();
+        }
+
+        function mostrarConfirmacion() {
+            pasoBusqueda.classList.add('hidden');
+            pasoConfirmacion.classList.remove('hidden');
+            document.getElementById('nombre-encontrado').textContent = invitadoActual.nombre;
+            document.getElementById('pases-totales').textContent = invitadoActual.pases_totales;
+
+            const select = document.getElementById('select-asistentes');
+            select.innerHTML = '<option value="0">Lo siento, no podremos asistir</option>';
+            for (let i = 1; i <= invitadoActual.pases_totales; i++) {
+                select.innerHTML += `<option value="${i}">${i} persona${i > 1 ? 's' : ''}</option>`;
+            }
+            select.value = invitadoActual.pases_totales;
+        }
+
+        function volverBusqueda() {
+            pasoBusqueda.classList.remove('hidden');
+            pasoConfirmacion.classList.add('hidden');
+            pasoExito.classList.add('hidden');
+            inputBusqueda.value = '';
+            mensajeError.classList.add('hidden');
+            listaResultados.classList.add('hidden');
+            listaResultados.innerHTML = '';
+            invitadoActual = null;
+        }
+
+        function enviarConfirmacion() {
+            const asisten = document.getElementById('select-asistentes').value;
+            console.log(`Guardado: ${invitadoActual.nombre} confirmó ${asisten} pases.`);
+            pasoConfirmacion.classList.add('hidden');
+            pasoExito.classList.remove('hidden');
+        }
+
+        // --- LÓGICA DE MÚSICA ---
+        const bgMusic = document.getElementById('bg-music');
+        const musicBtnIcon = document.getElementById('music-btn-icon');
+        let isPlaying = false;
+
+        function toggleMusic(e) {
+            if (e) e.stopPropagation();
+            if (isPlaying) {
+                bgMusic.pause();
+                musicBtnIcon.classList.remove('fa-music');
+                musicBtnIcon.classList.add('fa-volume-xmark');
+                musicBtnIcon.classList.remove('animate-pulse');
+            } else {
+                bgMusic.play().catch(error => console.log("Bloqueado", error));
+                musicBtnIcon.classList.remove('fa-volume-xmark');
+                musicBtnIcon.classList.add('fa-music');
+                musicBtnIcon.classList.add('animate-pulse');
+            }
+            isPlaying = !isPlaying;
+        }
+
+        function initAudio(e) {
+            if (e && e.target.closest('button[onclick="toggleMusic(event)"]')) return;
+            if (!isPlaying) {
+                toggleMusic();
+            }
+            // Quitar los eventos después de la primera interacción
+            document.body.removeEventListener('click', initAudio);
+            document.body.removeEventListener('touchstart', initAudio);
+        }
+
+        document.body.addEventListener('click', initAudio);
+        document.body.addEventListener('touchstart', initAudio, { passive: true });
+    </script>
+</body>
+</html>

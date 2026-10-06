@@ -1,0 +1,22 @@
+const invitadosData = [
+  {
+    "id": "fam-garcia",
+    "nombre": "Familia García Pérez",
+    "pases_totales": 4
+  },
+  {
+    "id": "fam-garcia",
+    "nombre": "Familia García López",
+    "pases_totales": 4
+  },
+  {
+    "id": "juan-lopez",
+    "nombre": "Juan López",
+    "pases_totales": 1
+  },
+  {
+    "id": "fam-martinez",
+    "nombre": "Familia Martínez",
+    "pases_totales": 3
+  }
+];

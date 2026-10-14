@@ -112,7 +112,43 @@
 
     </style>
 </head>
-<body class="antialiased">
+<body class="antialiased overflow-hidden">
+
+    <!-- Pantalla de Bienvenida / Sobre de Invitación -->
+    <div id="welcome-screen" class="fixed inset-0 z-[100] flex items-center justify-center bg-[#fdfbf7]/95 backdrop-blur-md transition-all duration-700 ease-in-out p-4">
+        <!-- Elementos decorativos de fondo -->
+        <img src="source/element4.png" alt="Decoración" class="absolute top-0 right-0 w-[70%] max-w-sm pointer-events-none opacity-40">
+        <img src="source/element5.png" alt="Decoración" class="absolute bottom-0 left-0 w-[70%] max-w-sm pointer-events-none opacity-40">
+        <img src="source/element2.png" alt="Gold Splatter" class="absolute top-8 right-6 w-[45%] max-w-xs pointer-events-none opacity-50">
+
+        <!-- Tarjeta tipo Sobre / Bienvenida -->
+        <div class="relative z-10 w-full max-w-sm text-center p-8 sm:p-10 rounded-3xl bg-white/95 border-2 border-gold-theme shadow-2xl flex flex-col items-center">
+            <!-- Sello / Monograma -->
+            <div class="w-20 h-20 rounded-full border-2 border-gold-theme flex items-center justify-center mb-4 bg-white shadow-sm">
+                <span class="script-font text-5xl text-blue-theme">XV</span>
+            </div>
+
+            <p class="serif-font text-[11px] tracking-[0.25em] uppercase text-[#87a0b9] mb-1">Mis Quince Años</p>
+            <h2 class="script-font text-5xl text-blue-theme mb-2">María José</h2>
+            
+            <div class="w-16 h-[1px] bg-gold-theme mb-4"></div>
+
+            <p class="serif-font text-xs tracking-wider text-[#5a7fa4] leading-relaxed mb-6">
+                Te invito a ser parte de este momento tan especial en mi vida.
+            </p>
+
+            <!-- Botón para Abrir Invitación -->
+            <button onclick="abrirInvitacion()" class="w-full bg-[#5a7fa4] hover:bg-[#486989] text-white py-4 px-6 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-3 group cursor-pointer">
+                <i class="fa-solid fa-envelope-open-text text-gold-theme text-base transition-transform group-hover:scale-110"></i>
+                <span class="serif-font text-xs tracking-widest uppercase font-semibold">Abrir Invitación</span>
+            </button>
+
+            <div class="flex items-center gap-1.5 mt-4 text-[11px] text-[#87a0b9]">
+                <i class="fa-solid fa-music text-gold-theme text-[10px] animate-bounce"></i>
+                <span>Toca para abrir con música</span>
+            </div>
+        </div>
+    </div>
 
     <div class="invitation-container">
         
@@ -263,7 +299,7 @@
     </div>
 
     <!-- Etiqueta de Audio para la Música de Fondo -->
-    <audio id="bg-music" loop>
+    <audio id="bg-music" loop preload="auto">
         <source src="source/cancion.mp3" type="audio/mpeg">
     </audio>
 
@@ -423,39 +459,78 @@
             window.open(url, '_blank');
         }
 
-        // --- LÓGICA DE MÚSICA ---
+        // --- LÓGICA DE MÚSICA Y BIENVENIDA ---
         const bgMusic = document.getElementById('bg-music');
         const musicBtnIcon = document.getElementById('music-btn-icon');
         let isPlaying = false;
 
+        function reproducirMusica() {
+            if (!bgMusic) return;
+            const playPromise = bgMusic.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    isPlaying = true;
+                    if (musicBtnIcon) {
+                        musicBtnIcon.classList.remove('fa-volume-xmark');
+                        musicBtnIcon.classList.add('fa-music', 'animate-pulse');
+                    }
+                }).catch(error => {
+                    console.log("Reproducción postergada por navegador:", error);
+                });
+            }
+        }
+
+        function abrirInvitacion() {
+            // Iniciar música con el gesto del usuario
+            reproducirMusica();
+
+            // Habilitar el scroll en el body
+            document.body.classList.remove('overflow-hidden');
+
+            // Animar y ocultar la pantalla de bienvenida
+            const welcome = document.getElementById('welcome-screen');
+            if (welcome) {
+                welcome.classList.add('opacity-0', 'scale-105', 'pointer-events-none');
+                setTimeout(() => {
+                    welcome.style.display = 'none';
+                }, 750);
+            }
+        }
+
         function toggleMusic(e) {
             if (e) e.stopPropagation();
+            if (!bgMusic) return;
+
             if (isPlaying) {
                 bgMusic.pause();
-                musicBtnIcon.classList.remove('fa-music');
-                musicBtnIcon.classList.add('fa-volume-xmark');
-                musicBtnIcon.classList.remove('animate-pulse');
+                if (musicBtnIcon) {
+                    musicBtnIcon.classList.remove('fa-music', 'animate-pulse');
+                    musicBtnIcon.classList.add('fa-volume-xmark');
+                }
+                isPlaying = false;
             } else {
-                bgMusic.play().catch(error => console.log("Bloqueado", error));
-                musicBtnIcon.classList.remove('fa-volume-xmark');
-                musicBtnIcon.classList.add('fa-music');
-                musicBtnIcon.classList.add('animate-pulse');
+                const playPromise = bgMusic.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        isPlaying = true;
+                        if (musicBtnIcon) {
+                            musicBtnIcon.classList.remove('fa-volume-xmark');
+                            musicBtnIcon.classList.add('fa-music', 'animate-pulse');
+                        }
+                    }).catch(error => console.log("Bloqueado por navegador:", error));
+                }
             }
-            isPlaying = !isPlaying;
         }
 
-        function initAudio(e) {
-            if (e && e.target.closest('button[onclick="toggleMusic(event)"]')) return;
+        // Respaldo de interacción por si el usuario toca la pantalla
+        function fallbackAudio(e) {
+            if (e && e.target && e.target.closest('button[onclick="toggleMusic(event)"]')) return;
             if (!isPlaying) {
-                toggleMusic();
+                reproducirMusica();
             }
-            // Quitar los eventos después de la primera interacción
-            document.body.removeEventListener('click', initAudio);
-            document.body.removeEventListener('touchstart', initAudio);
         }
-
-        document.body.addEventListener('click', initAudio);
-        document.body.addEventListener('touchstart', initAudio, { passive: true });
+        document.addEventListener('click', fallbackAudio, { once: true });
+        document.addEventListener('touchend', fallbackAudio, { once: true });
     </script>
 </body>
 </html>

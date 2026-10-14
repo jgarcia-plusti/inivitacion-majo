@@ -24,5 +24,7 @@ const invitadosData = [
   { "id": "vilma-perez", "nombre": "Vilma Perez", "pases_totales": 1, "confirmed":"false" },
   { "id": "katherin-contreras", "nombre": "Katherin Contreras", "pases_totales": 2, "confirmed":"false" },
   { "id": "fam-perez-espinoza", "nombre": "Familia Perez Espinoza", "pases_totales": 2, "confirmed":"false" },
-  { "id": "odilia-martinez", "nombre": "Odilia Martinez", "pases_totales": 1, "confirmed":"false" }
+  { "id": "odilia-martinez", "nombre": "Odilia Martinez", "pases_totales": 1, "confirmed":"false" },
+  { "id": "fam-andrade-garcia", "nombre": "Familia Andrade Garcia", "pases_totales": 5, "confirmed":"false" },
+  { "id": "fam-hern-castillo", "nombre": "Familia Hernandez Castillo", "pases_totales": 1, "confirmed":"false" }
 ];

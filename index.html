@@ -8,33 +8,73 @@
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --blue-theme: #5a7fa4;
+            --blue-dark: #486989;
+            --blue-soft: #87a0b9;
+            --gold-theme: #d4be84;
+            --gold-light: #eadbb4;
+            --gold-dark: #b89f61;
+            --ivory: #fdfbf7;
+            --envelope-front: #faf5ea;
+            --envelope-side: #f3ecdc;
+            --envelope-flap: #efe5d0;
+        }
+
         body {
-            background-color: #ffffff;
-            /* Acuarela suave en el fondo general */
+            background-color: #f6f8fb;
             background-image: 
-                radial-gradient(circle at 0% 100%, rgba(135, 180, 220, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 100% 0%, rgba(135, 180, 220, 0.1) 0%, transparent 40%);
+                radial-gradient(circle at 0% 100%, rgba(135, 180, 220, 0.18) 0%, transparent 45%),
+                radial-gradient(circle at 100% 0%, rgba(212, 190, 132, 0.14) 0%, transparent 45%);
             margin: 0;
             padding: 0;
             overflow-x: hidden;
-            color: #5a7fa4;
+            color: var(--blue-theme);
         }
 
         .invitation-container {
             max-width: 450px;
             margin: 0 auto;
-            background-color: transparent;
             position: relative;
             min-height: 100vh;
             overflow: hidden;
-            box-shadow: 0 0 30px rgba(0,0,0,0.05);
-            background-color: #fff;
+            box-shadow: 0 0 40px rgba(90, 127, 164, 0.15);
+            background-color: #ffffff;
+            transform-origin: center top;
         }
 
-        .text-blue-theme { color: #5a7fa4; }
-        .text-gold-theme { color: #d4be84; }
-        .border-gold-theme { border-color: #d4be84; }
-        .bg-gold-theme { background-color: #d4be84; }
+        /* Efecto de la página saliendo del sobre */
+        .invitation-pre-open {
+            opacity: 0;
+            transform: translateY(140px) scale(0.88);
+            filter: blur(3px);
+        }
+
+        .invitation-emerging {
+            animation: pageEmergeFromEnvelope 1.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        @keyframes pageEmergeFromEnvelope {
+            0% {
+                opacity: 0;
+                transform: translateY(140px) scale(0.88);
+                filter: blur(3px);
+            }
+            45% {
+                opacity: 1;
+                filter: blur(0px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0px);
+            }
+        }
+
+        .text-blue-theme { color: var(--blue-theme); }
+        .text-gold-theme { color: var(--gold-theme); }
+        .border-gold-theme { border-color: var(--gold-theme); }
+        .bg-gold-theme { background-color: var(--gold-theme); }
 
         .script-font {
             font-family: 'Great Vibes', cursive;
@@ -44,147 +84,443 @@
             font-family: 'Cinzel', serif;
         }
 
-        /* Imágenes Absolutas para decorar */
-        .floral-top-left {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 80%;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .floral-bottom-right {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 90%;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .gold-splatters {
-            position: absolute;
+        /* ====== DISEÑO Y ANIMACIÓN DEL SOBRE 3D ====== */
+        .envelope-stage {
+            perspective: 1400px;
             width: 100%;
-            height: 100%;
-            top: 0; left: 0;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><circle cx="85%" cy="25%" r="3" fill="%23d4be84" opacity="0.6"/><circle cx="90%" cy="22%" r="1.5" fill="%23d4be84" opacity="0.8"/><circle cx="82%" cy="20%" r="2" fill="%23d4be84" opacity="0.5"/><circle cx="88%" cy="28%" r="2.5" fill="%23d4be84" opacity="0.7"/><circle cx="15%" cy="75%" r="3" fill="%23d4be84" opacity="0.6"/><circle cx="10%" cy="72%" r="1.5" fill="%23d4be84" opacity="0.8"/><circle cx="18%" cy="80%" r="2" fill="%23d4be84" opacity="0.5"/><circle cx="12%" cy="78%" r="2.5" fill="%23d4be84" opacity="0.7"/></svg>');
-            pointer-events: none;
-            z-index: 0;
+            max-width: 380px;
+            position: relative;
+            margin: 0 auto;
         }
 
-        .content-layer {
+        .envelope-wrapper {
             position: relative;
-            z-index: 10;
-            padding: 2rem;
+            width: 100%;
+            height: 310px;
+            border-radius: 14px;
+            box-shadow: 0 25px 50px -12px rgba(60, 80, 105, 0.28), 0 0 0 1px rgba(212, 190, 132, 0.45);
+            background: var(--envelope-front);
+            transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.9s ease;
+             animation: envelopeFloat 4.5s ease-in-out infinite;
+        }
+
+        @keyframes envelopeFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-7px); }
+        }
+
+        .envelope-wrapper.is-opening {
+            animation: none;
+            transform: translateY(55px) scale(0.97);
+        }
+
+        /* Interior del sobre */
+        .envelope-back {
+            position: absolute;
+            inset: 0;
+            border-radius: 14px;
+            background: linear-gradient(180deg, #e7dcc4 0%, #f5eedf 100%);
+            border: 1.5px solid rgba(212, 190, 132, 0.6);
+            z-index: 5;
+        }
+
+        /* Carta dentro del sobre que emerge hacia arriba */
+        .envelope-letter {
+            position: absolute;
+            left: 6%;
+            right: 6%;
+            top: 8%;
+            bottom: 8%;
+            background: linear-gradient(180deg, #ffffff 0%, #fdfbf7 100%);
+            border: 1.5px solid var(--gold-theme);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+            z-index: 15;
+            padding: 1.15rem 1.1rem 2.2rem;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            min-height: 100vh;
+            justify-content: flex-start;
             text-align: center;
+            transition: transform 1.15s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 1.15s ease;
+            overflow: hidden;
         }
 
-        /* Animación suave al cargar */
-        .fade-in {
-            animation: fadeIn 1.5s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .envelope-letter::before {
+            content: '';
+            position: absolute;
+            inset: 6px;
+            border: 1px dashed rgba(212, 190, 132, 0.55);
+            border-radius: 8px;
+            pointer-events: none;
         }
 
+        /* Cuando el sobre se abre, primero abre la solapa y luego la carta sale hacia arriba */
+        .envelope-wrapper.is-opening .envelope-letter {
+            transform: translateY(-165px) scale(1.05);
+            box-shadow: 0 24px 45px rgba(90, 127, 164, 0.25);
+            transition-delay: 0.35s;
+        }
+
+        .envelope-wrapper.is-expanding .envelope-letter {
+            transform: translateY(-40px) scale(2.1);
+            opacity: 0;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.7s ease;
+            transition-delay: 0s;
+        }
+
+        /* Bolsillo frontal del sobre (solapas laterales e inferior) */
+        .envelope-pocket {
+            position: absolute;
+            inset: 0;
+            z-index: 25;
+            border-radius: 14px;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        /* Solapa superior móvil (3D) */
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 62%;
+            z-index: 35;
+            transform-origin: top center;
+            transform: rotateX(0deg);
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s linear 0.32s;
+            pointer-events: none;
+            filter: drop-shadow(0 6px 10px rgba(140, 118, 70, 0.18));
+        }
+
+        .envelope-wrapper.is-opening .envelope-flap {
+            transform: rotateX(180deg);
+            z-index: 10;
+        }
+
+        /* Sello y botón único sobre el sobre */
+        .envelope-seal-container {
+            position: absolute;
+            inset: 0;
+            z-index: 45;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            padding-bottom: 1.35rem;
+            transition: opacity 0.35s ease, transform 0.4s ease;
+        }
+
+        .envelope-wrapper.is-opening .envelope-seal-container {
+            opacity: 0;
+            transform: scale(0.85) translateY(15px);
+            pointer-events: none;
+        }
+
+        .wax-seal {
+            width: 78px;
+            height: 78px;
+            border-radius: 9999px;
+            background: radial-gradient(circle at 30% 30%, #f5e6be 0%, #d4be84 55%, #b39754 100%);
+            border: 2px solid #fff8e7;
+            box-shadow: 0 8px 20px rgba(160, 130, 65, 0.35), inset 0 0 10px rgba(255, 255, 255, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.15rem;
+            position: relative;
+            animation: sealPulse 2.8s ease-in-out infinite;
+        }
+
+        .wax-seal::after {
+            content: '';
+            position: absolute;
+            inset: 5px;
+            border-radius: 9999px;
+            border: 1px dashed rgba(255, 255, 255, 0.75);
+        }
+
+        @keyframes sealPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 8px 20px rgba(160, 130, 65, 0.35), 0 0 0 0 rgba(212, 190, 132, 0.45); }
+            50% { transform: scale(1.05); box-shadow: 0 10px 24px rgba(160, 130, 65, 0.45), 0 0 0 10px rgba(212, 190, 132, 0); }
+        }
+
+        /* ====== MOVIMIENTO CONTINUO EN DECORACIONES ====== */
+        @keyframes breezeTopLeft {
+            0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            50% { transform: translate(4px, 6px) rotate(1.8deg) scale(1.02); }
+        }
+
+        @keyframes breezeBottomRight {
+            0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            50% { transform: translate(-5px, -5px) rotate(-1.8deg) scale(1.02); }
+        }
+
+        @keyframes cloudFloat {
+            0%, 100% { transform: translateY(0px) scale(1); opacity: 0.85; }
+            50% { transform: translateY(8px) scale(1.03); opacity: 1; }
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+
+        @keyframes shimmerGold {
+            0%, 100% { opacity: 0.45; transform: scale(1); }
+            50% { opacity: 0.85; transform: scale(1.03); }
+        }
+
+        .anim-breeze-tl {
+            animation: breezeTopLeft 6.5s ease-in-out infinite;
+            transform-origin: top left;
+        }
+
+        .anim-breeze-br {
+            animation: breezeBottomRight 7s ease-in-out infinite;
+            transform-origin: bottom right;
+        }
+
+        .anim-cloud {
+            animation: cloudFloat 8s ease-in-out infinite;
+        }
+
+        .anim-shimmer {
+            animation: shimmerGold 4.5s ease-in-out infinite;
+        }
+
+        .icon-badge {
+            position: relative;
+            animation: iconFloat 3.6s ease-in-out infinite;
+        }
+
+        .icon-badge::after {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 9999px;
+            border: 1px dashed rgba(212, 190, 132, 0.55);
+            animation: spinSlow 18s linear infinite;
+        }
+
+        @keyframes spinSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* ====== ANIMACIONES AL HACER SCROLL (REVEAL) ====== */
+        .reveal {
+            opacity: 0;
+            transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: opacity, transform;
+        }
+
+        .reveal-up {
+            transform: translateY(36px);
+        }
+
+        .reveal-scale {
+            transform: scale(0.9);
+        }
+
+        .reveal-left {
+            transform: translateX(-30px);
+        }
+
+        .reveal-right {
+            transform: translateX(30px);
+        }
+
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translate(0, 0) scale(1);
+        }
+
+        .delay-100 { transition-delay: 0.1s; }
+        .delay-200 { transition-delay: 0.2s; }
+        .delay-300 { transition-delay: 0.3s; }
+        .delay-400 { transition-delay: 0.4s; }
+
+        /* ====== PARTÍCULAS DORADAS FLOTANDO ====== */
+        .sparkle-particle {
+            position: absolute;
+            border-radius: 9999px;
+            background-color: #d4be84;
+            pointer-events: none;
+            animation: floatSparkle ease-in-out infinite;
+        }
+
+        @keyframes floatSparkle {
+            0% {
+                transform: translateY(0) scale(0.5);
+                opacity: 0;
+            }
+            30% {
+                opacity: 0.65;
+                transform: translateY(-25px) scale(1);
+            }
+            70% {
+                opacity: 0.5;
+                transform: translateY(-65px) scale(0.85);
+            }
+            100% {
+                transform: translateY(-100px) scale(0.4);
+                opacity: 0;
+            }
+        }
+
+        /* ====== BOTONES Y TARJETAS ====== */
         .btn-confirm {
-            background-color: #5a7fa4;
+            background: linear-gradient(135deg, #5a7fa4 0%, #486989 100%);
             color: white;
-            padding: 0.8rem 2rem;
+            padding: 0.9rem 2.2rem;
             border-radius: 30px;
             font-family: 'Cinzel', serif;
             font-size: 0.8rem;
-            letter-spacing: 1px;
-            transition: all 0.3s;
+            letter-spacing: 1.5px;
+            transition: all 0.35s ease;
             margin-top: 1.5rem;
-            box-shadow: 0 4px 15px rgba(90, 127, 164, 0.3);
+            box-shadow: 0 6px 20px rgba(90, 127, 164, 0.35);
         }
         .btn-confirm:hover {
-            background-color: #486989;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(90, 127, 164, 0.45);
         }
 
+        .countdown-box {
+            background: rgba(255, 255, 255, 0.88);
+            border: 1px solid rgba(212, 190, 132, 0.7);
+            box-shadow: 0 6px 18px rgba(90, 127, 164, 0.08);
+            backdrop-filter: blur(4px);
+            transition: transform 0.3s ease;
+        }
+
+        .verse-card {
+            background: linear-gradient(180deg, rgba(253, 251, 247, 0.92) 0%, rgba(255, 255, 255, 0.95) 100%);
+            border: 1px solid rgba(212, 190, 132, 0.65);
+            box-shadow: 0 10px 30px rgba(90, 127, 164, 0.07);
+            position: relative;
+        }
     </style>
 </head>
 <body class="antialiased overflow-hidden">
 
-    <!-- Pantalla de Bienvenida / Sobre de Invitación -->
-    <div id="welcome-screen" class="fixed inset-0 z-[100] flex items-center justify-center bg-[#fdfbf7]/95 backdrop-blur-md transition-all duration-700 ease-in-out p-4">
+    <!-- ====== PANTALLA DE BIENVENIDA: SOBRE ANIMADO ====== -->
+    <div id="welcome-screen" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white transition-opacity duration-700 ease-in-out p-4 overflow-hidden">
+        <!-- Destellos dorados flotando en la bienvenida -->
+        <div id="welcome-sparkles" class="absolute inset-0 pointer-events-none z-10 overflow-hidden"></div>
+
         <!-- Elementos decorativos de fondo -->
-        <img src="source/element4.png" alt="Decoración" class="absolute top-0 right-0 w-[70%] max-w-sm pointer-events-none opacity-40">
-        <img src="source/element5.png" alt="Decoración" class="absolute bottom-0 left-0 w-[70%] max-w-sm pointer-events-none opacity-40">
-        <img src="source/element2.png" alt="Gold Splatter" class="absolute top-8 right-6 w-[45%] max-w-xs pointer-events-none opacity-50">
+        <img src="source/element4.png" alt="Decoración" class="absolute top-0 right-0 w-[75%] max-w-sm pointer-events-none opacity-55 mix-blend-multiply anim-cloud">
+        <img src="source/element5.png" alt="Decoración" class="absolute bottom-0 left-0 w-[75%] max-w-sm pointer-events-none opacity-55 mix-blend-multiply anim-cloud">
+        <img src="source/element6.png" alt="Flores" class="absolute top-0 left-0 w-[55%] max-w-xs pointer-events-none opacity-90 mix-blend-multiply anim-breeze-tl">
+        <img src="source/element1.png" alt="Flores" class="absolute bottom-0 right-0 w-[60%] max-w-xs pointer-events-none opacity-90 mix-blend-multiply anim-breeze-br">
+        <img src="source/element2.png" alt="Gold Splatter" class="absolute top-8 right-6 w-[45%] max-w-xs pointer-events-none opacity-65 mix-blend-multiply anim-shimmer">
 
-        <!-- Tarjeta tipo Sobre / Bienvenida -->
-        <div class="relative z-10 w-full max-w-sm text-center p-8 sm:p-10 rounded-3xl bg-white/95 border-2 border-gold-theme shadow-2xl flex flex-col items-center">
-            <!-- Sello / Monograma -->
-            <div class="w-20 h-20 rounded-full border-2 border-gold-theme flex items-center justify-center mb-4 bg-white shadow-sm">
-                <span class="script-font text-5xl text-blue-theme">XV</span>
-            </div>
+        <!-- Encabezado superior del sobre -->
+        <div id="welcome-header" class="relative z-20 text-center mb-6 transition-all duration-500">
+            <p class="serif-font text-[11px] tracking-[0.3em] uppercase text-[#87a0b9] mb-1">Mis Quince Años</p>
+            <h1 class="script-font text-5xl sm:text-6xl text-blue-theme">María José</h1>
+            <div class="w-20 h-[1px] bg-gold-theme mx-auto mt-1"></div>
+        </div>
 
-            <p class="serif-font text-[11px] tracking-[0.25em] uppercase text-[#87a0b9] mb-1">Mis Quince Años</p>
-            <h2 class="script-font text-5xl text-blue-theme mb-2">María José</h2>
-            
-            <div class="w-16 h-[1px] bg-gold-theme mb-4"></div>
+        <!-- Escenario 3D del Sobre -->
+        <div class="envelope-stage z-20">
+            <div id="envelope-wrapper" class="envelope-wrapper">
+                
+                <!-- Fondo interno del sobre -->
+                <div class="envelope-back"></div>
 
-            <p class="serif-font text-xs tracking-wider text-[#5a7fa4] leading-relaxed mb-6">
-                Te invito a ser parte de este momento tan especial en mi vida.
-            </p>
+                <!-- Tarjeta/Página de Invitación dentro del sobre (sale al abrir) -->
+                <div class="envelope-letter">
+                    <span class="script-font text-4xl text-blue-theme leading-none">XV</span>
+                    <p class="serif-font text-[9px] tracking-[0.25em] uppercase text-[#87a0b9] mt-0.5">22 · Noviembre · 2026</p>
+                    <h2 class="script-font text-3xl text-blue-theme my-0.5">María José</h2>
+                    <div class="w-12 h-[1px] bg-gold-theme my-1"></div>
+                    <p class="serif-font text-[9.5px] text-[#5a7fa4] italic px-2 leading-snug">
+                        "Guárdame como a la niña de tus ojos; escóndeme bajo la sombra de tus alas."
+                    </p>
+                    <span class="serif-font text-[8px] tracking-widest uppercase text-gold-theme mt-1 font-semibold">Salmos 17:8</span>
+                </div>
 
-            <!-- Botón para Abrir Invitación -->
-            <button onclick="abrirInvitacion()" class="w-full bg-[#5a7fa4] hover:bg-[#486989] text-white py-4 px-6 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-3 group cursor-pointer">
-                <i class="fa-solid fa-envelope-open-text text-gold-theme text-base transition-transform group-hover:scale-110"></i>
-                <span class="serif-font text-xs tracking-widest uppercase font-semibold">Abrir Invitación</span>
-            </button>
+                <!-- Bolsillo frontal del sobre (SVG con bordes dorados) -->
+                <div class="envelope-pocket">
+                    <svg viewBox="0 0 380 310" preserveAspectRatio="none" class="w-full h-full">
+                        <!-- Solapa izquierda -->
+                        <polygon points="0,0 190,165 0,310" fill="#f5efe2" stroke="#d4be84" stroke-width="1.2" />
+                        <!-- Solapa derecha -->
+                        <polygon points="380,0 190,165 380,310" fill="#f1e9d8" stroke="#d4be84" stroke-width="1.2" />
+                        <!-- Solapa inferior -->
+                        <polygon points="0,310 190,150 380,310" fill="#faf5ea" stroke="#d4be84" stroke-width="1.5" />
+                        <!-- Línea decorativa dorada interior -->
+                        <polyline points="14,306 190,162 366,306" fill="none" stroke="#d4be84" stroke-width="0.8" stroke-dasharray="4 3" opacity="0.7" />
+                    </svg>
+                </div>
 
-            <div class="flex items-center gap-1.5 mt-4 text-[11px] text-[#87a0b9]">
-                <i class="fa-solid fa-music text-gold-theme text-[10px] animate-bounce"></i>
-                <span>Toca para abrir con música</span>
+                <!-- Solapa superior del sobre (se abre en 3D) -->
+                <div id="envelope-flap" class="envelope-flap">
+                    <svg viewBox="0 0 380 192" preserveAspectRatio="none" class="w-full h-full">
+                        <polygon points="0,0 380,0 190,184" fill="#efe6d2" stroke="#d4be84" stroke-width="1.6" />
+                        <polyline points="16,4 190,172 364,4" fill="none" stroke="#d4be84" stroke-width="0.9" stroke-dasharray="4 3" opacity="0.75" />
+                    </svg>
+                </div>
+
+                <!-- Sello Dorado "XV" y Único Botón "Abrir Invitación" -->
+                <div class="envelope-seal-container">
+                    <div onclick="abrirInvitacion()" class="wax-seal cursor-pointer" title="Abrir Invitación">
+                        <span class="script-font text-3xl text-[#5a7fa4] select-none pr-1 pt-0.5">XV</span>
+                    </div>
+
+                    <button id="btn-abrir-invitacion" onclick="abrirInvitacion()" class="bg-[#5a7fa4] hover:bg-[#486989] text-white py-3.5 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-3 group cursor-pointer border border-[#d4be84]/60">
+                        <i class="fa-solid fa-envelope-open-text text-gold-theme text-sm transition-transform group-hover:scale-110"></i>
+                        <span class="serif-font text-xs tracking-[0.2em] uppercase font-semibold">Abrir Invitación</span>
+                    </button>
+                </div>
+
             </div>
         </div>
     </div>
 
-    <div class="invitation-container">
+    <!-- ====== CONTENEDOR PRINCIPAL DE LA INVITACIÓN ====== -->
+    <div id="main-invitation" class="invitation-container invitation-pre-open">
         
-        <!-- Elementos Decorativos (Capas de Canva) -->
-        
+        <!-- Contenedor de Partículas / Destellos Dorados Flotando -->
+        <div id="sparkles-container" class="absolute inset-0 pointer-events-none z-10 overflow-hidden"></div>
+
+        <!-- Elementos Decorativos con Movimiento Continuo -->
         <!-- Nubes Acuarela (Fondo) -->
-        <img src="source/element4.png" alt="Acuarela Superior" class="absolute top-0 right-0 w-[90%] md:w-[70%] pointer-events-none z-0">
-        <img src="source/element5.png" alt="Acuarela Inferior" class="absolute bottom-0 left-0 w-[90%] md:w-[70%] pointer-events-none z-0">
+        <img src="source/element4.png" alt="Acuarela Superior" class="absolute top-0 right-0 w-[90%] md:w-[70%] pointer-events-none z-0 mix-blend-multiply anim-cloud">
+        <img src="source/element5.png" alt="Acuarela Inferior" class="absolute bottom-0 left-0 w-[90%] md:w-[70%] pointer-events-none z-0 mix-blend-multiply anim-cloud">
         
         <!-- Salpicaduras Doradas -->
-        <img src="source/element2.png" alt="Gold Splatter" class="absolute top-0 right-0 w-[60%] pointer-events-none z-0">
-        <img src="source/element3.png" alt="Gold Splatter" class="absolute bottom-20 left-0 w-[60%] pointer-events-none z-0">
+        <img src="source/element2.png" alt="Gold Splatter" class="absolute top-0 right-0 w-[60%] pointer-events-none z-0 mix-blend-multiply anim-shimmer">
+        <img src="source/element3.png" alt="Gold Splatter Medio" class="absolute top-[45%] right-0 w-[55%] pointer-events-none z-0 opacity-60 mix-blend-multiply anim-shimmer">
+        <img src="source/element3.png" alt="Gold Splatter" class="absolute bottom-20 left-0 w-[60%] pointer-events-none z-0 mix-blend-multiply anim-shimmer">
 
-        <!-- Flores Principales -->
-        <img src="source/element6.png" alt="Flores Arriba" class="absolute top-0 left-0 w-[65%] md:w-[50%] pointer-events-none z-10">
-        <img src="source/element1.png" alt="Flores Abajo" class="absolute bottom-0 right-0 w-[75%] md:w-[60%] pointer-events-none z-10">
+        <!-- Flores Principales con Efecto de Brisa -->
+        <img src="source/element6.png" alt="Flores Arriba" class="absolute top-0 left-0 w-[65%] md:w-[50%] pointer-events-none z-10 mix-blend-multiply anim-breeze-tl">
+        <img src="source/element1.png" alt="Flores Abajo" class="absolute bottom-0 right-0 w-[75%] md:w-[60%] pointer-events-none z-10 mix-blend-multiply anim-breeze-br">
 
         <!-- Contenido Central (Secciones) -->
         <div class="relative z-20">
             
             <!-- ====== PORTADA ====== -->
-            <section class="flex flex-col items-center justify-center min-h-[95vh] text-center px-4 pt-10 pb-8 fade-in">
+            <section class="flex flex-col items-center justify-center min-h-[95vh] text-center px-4 pt-12 pb-6">
                 
-                <div class="mb-4">
+                <div class="mb-4 reveal reveal-scale">
                     <h1 class="script-font text-[7rem] leading-none text-blue-theme" style="margin-bottom: -1.5rem;">XV</h1>
                     <h2 class="script-font text-5xl text-blue-theme">años</h2>
                 </div>
 
-                <h3 class="script-font text-5xl text-blue-theme mb-6">María José Lopez Garcia</h3>
+                <h3 class="script-font text-5xl text-blue-theme mb-6 reveal reveal-up delay-100">María José Lopez Garcia</h3>
 
-                <p class="script-font text-2xl text-blue-theme leading-relaxed px-4 mb-8">
+                <p class="script-font text-2xl text-blue-theme leading-relaxed px-4 mb-8 reveal reveal-up delay-200">
                     Hay historias y personas que no voy a olvidar y recuerdos como este que siempre voy a guardar.<br>
                     Porque son parte de mi vida es mi deseo que compartan conmigo en este día tan especial.
                 </p>
 
-                <div class="w-full flex flex-col items-center mb-8">
+                <div class="w-full flex flex-col items-center mb-6 reveal reveal-up delay-300">
                     <div class="serif-font text-xl tracking-widest text-blue-theme mb-2">NOV.</div>
                     <div class="flex items-center justify-center w-full max-w-[320px]">
                         <div class="flex-1 text-center py-2 border-t border-b border-gold-theme mx-2">
@@ -204,24 +540,89 @@
                 </div>
             </section>
 
-            <!-- ====== MIS PADRES ====== -->
-            <section class="py-16 text-center px-6">
-                <h3 class="serif-font text-sm tracking-[0.2em] uppercase mb-4 text-[#87a0b9]">Con la bendición de mis padres</h3>
-                <p class="script-font text-5xl text-blue-theme">Edgar Lopez</p>
-                <p class="script-font text-3xl text-gold-theme my-2">Y</p>
-                <p class="script-font text-5xl text-blue-theme">Wendy Garcia</p>
+            <!-- ====== VERSÍCULO BÍBLICO: SALMOS 17:8 ====== -->
+            <section class="py-8 px-6 text-center reveal reveal-up">
+                <div class="verse-card rounded-2xl p-6 sm:p-7 mx-auto max-w-sm">
+                    <div class="text-gold-theme mb-3 flex justify-center">
+                        <div class="w-9 h-9 rounded-full border border-gold-theme/60 flex items-center justify-center icon-badge bg-white">
+                            <i class="fa-solid fa-book-bible text-sm text-gold-theme"></i>
+                        </div>
+                    </div>
+                    <p class="script-font text-3xl text-blue-theme leading-snug mb-3">
+                        "Guárdame como a la niña de tus ojos; escóndeme bajo la sombra de tus alas."
+                    </p>
+                    <div class="w-12 h-[1px] bg-gold-theme mx-auto mb-2"></div>
+                    <p class="serif-font text-xs tracking-[0.25em] uppercase text-[#87a0b9] font-semibold">
+                        Salmos 17:8
+                    </p>
+                </div>
             </section>
 
             <!-- Separador Floral -->
-            <div class="flex justify-center my-4 opacity-50">
-                <i class="fa-solid fa-leaf text-gold-theme"></i>
+            <div class="flex justify-center items-center gap-3 my-4 opacity-80 reveal reveal-scale">
+                <span class="w-12 h-[1px] bg-gradient-to-r from-transparent to-[#d4be84]"></span>
+                <svg class="w-5 h-5 text-gold-theme" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 2C13.2 5.2 15.5 7.5 18.7 8.7C15.5 9.9 13.2 12.2 12 15.4C10.8 12.2 8.5 9.9 5.3 8.7C8.5 7.5 10.8 5.2 12 2ZM12 17.5C12.6 19.1 13.7 20.2 15.3 20.8C13.7 21.4 12.6 22.5 12 24C11.4 22.5 10.3 21.4 8.7 20.8C10.3 20.2 11.4 19.1 12 17.5Z"/>
+                </svg>
+                <span class="w-12 h-[1px] bg-gradient-to-l from-transparent to-[#d4be84]"></span>
+            </div>
+
+            <!-- ====== CONTADOR REGRESIVO ====== -->
+            <section class="py-10 text-center px-6 reveal reveal-up">
+                <p class="serif-font text-xs tracking-[0.25em] uppercase text-[#87a0b9] mb-2">Cuenta Regresiva</p>
+                <h3 class="script-font text-4xl text-blue-theme mb-6">Tan solo faltan...</h3>
+
+                <div class="grid grid-cols-4 gap-2.5 max-w-xs mx-auto">
+                    <div class="countdown-box rounded-xl py-3 px-1 flex flex-col items-center justify-center">
+                        <span id="cd-days" class="serif-font text-2xl font-semibold text-blue-theme">00</span>
+                        <span class="serif-font text-[9px] tracking-widest uppercase text-gold-theme mt-1">Días</span>
+                    </div>
+                    <div class="countdown-box rounded-xl py-3 px-1 flex flex-col items-center justify-center">
+                        <span id="cd-hours" class="serif-font text-2xl font-semibold text-blue-theme">00</span>
+                        <span class="serif-font text-[9px] tracking-widest uppercase text-gold-theme mt-1">Horas</span>
+                    </div>
+                    <div class="countdown-box rounded-xl py-3 px-1 flex flex-col items-center justify-center">
+                        <span id="cd-minutes" class="serif-font text-2xl font-semibold text-blue-theme">00</span>
+                        <span class="serif-font text-[9px] tracking-widest uppercase text-gold-theme mt-1">Min</span>
+                    </div>
+                    <div class="countdown-box rounded-xl py-3 px-1 flex flex-col items-center justify-center">
+                        <span id="cd-seconds" class="serif-font text-2xl font-semibold text-blue-theme">00</span>
+                        <span class="serif-font text-[9px] tracking-widest uppercase text-gold-theme mt-1">Seg</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Separador Floral -->
+            <div class="flex justify-center items-center gap-3 my-4 opacity-80 reveal reveal-scale">
+                <span class="w-12 h-[1px] bg-gradient-to-r from-transparent to-[#d4be84]"></span>
+                <svg class="w-5 h-5 text-gold-theme" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 2C13.2 5.2 15.5 7.5 18.7 8.7C15.5 9.9 13.2 12.2 12 15.4C10.8 12.2 8.5 9.9 5.3 8.7C8.5 7.5 10.8 5.2 12 2ZM12 17.5C12.6 19.1 13.7 20.2 15.3 20.8C13.7 21.4 12.6 22.5 12 24C11.4 22.5 10.3 21.4 8.7 20.8C10.3 20.2 11.4 19.1 12 17.5Z"/>
+                </svg>
+                <span class="w-12 h-[1px] bg-gradient-to-l from-transparent to-[#d4be84]"></span>
+            </div>
+
+            <!-- ====== MIS PADRES ====== -->
+            <section class="py-14 text-center px-6 reveal reveal-up">
+                <h3 class="serif-font text-sm tracking-[0.2em] uppercase mb-4 text-[#87a0b9]">Con la bendición de mis padres</h3>
+                <p class="script-font text-5xl text-blue-theme reveal reveal-left delay-100">Edgar Lopez</p>
+                <p class="script-font text-3xl text-gold-theme my-2 reveal reveal-scale delay-200">Y</p>
+                <p class="script-font text-5xl text-blue-theme reveal reveal-right delay-300">Wendy Garcia</p>
+            </section>
+
+            <!-- Separador Floral -->
+            <div class="flex justify-center items-center gap-3 my-4 opacity-80 reveal reveal-scale">
+                <span class="w-12 h-[1px] bg-gradient-to-r from-transparent to-[#d4be84]"></span>
+                <svg class="w-5 h-5 text-gold-theme" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 2C13.2 5.2 15.5 7.5 18.7 8.7C15.5 9.9 13.2 12.2 12 15.4C10.8 12.2 8.5 9.9 5.3 8.7C8.5 7.5 10.8 5.2 12 2ZM12 17.5C12.6 19.1 13.7 20.2 15.3 20.8C13.7 21.4 12.6 22.5 12 24C11.4 22.5 10.3 21.4 8.7 20.8C10.3 20.2 11.4 19.1 12 17.5Z"/>
+                </svg>
+                <span class="w-12 h-[1px] bg-gradient-to-l from-transparent to-[#d4be84]"></span>
             </div>
 
             <!-- ====== CEREMONIA RELIGIOSA ====== -->
-            <section class="py-12 text-center px-6">
+            <section class="py-12 text-center px-6 reveal reveal-up">
                 <h2 class="script-font text-6xl text-blue-theme mb-6">Ceremonia</h2>
                 
-                <div class="w-16 h-16 mx-auto border border-gold-theme rounded-full flex items-center justify-center mb-6">
+                <div class="w-16 h-16 mx-auto border border-gold-theme rounded-full flex items-center justify-center mb-6 icon-badge bg-white/80">
                     <i class="fa-solid fa-church text-2xl text-gold-theme"></i>
                 </div>
 
@@ -233,21 +634,25 @@
                     <p class="text-xs mt-2 text-[#87a0b9] leading-relaxed">JF2P+CPH, Zona 10<br>Cdad. de Guatemala 01010</p>
                 </div>
 
-                <a href="https://www.google.com/maps/search/?api=1&query=Restaurante+Los+Cebollines,+Zona+10,+Cdad.+de+Guatemala" target="_blank" class="inline-block bg-transparent border border-gold-theme text-gold-theme px-8 py-3 rounded-full serif-font text-xs tracking-widest uppercase hover:bg-[#d4be84] hover:text-white transition-colors">
+                <a href="https://www.google.com/maps/search/?api=1&query=Restaurante+Los+Cebollines,+Zona+10,+Cdad.+de+Guatemala" target="_blank" class="inline-block bg-transparent border border-gold-theme text-gold-theme px-8 py-3 rounded-full serif-font text-xs tracking-widest uppercase hover:bg-[#d4be84] hover:text-white transition-all duration-300 hover:shadow-md">
                     Abrir Mapa <i class="fa-solid fa-map-location-dot ml-2"></i>
                 </a>
             </section>
 
             <!-- Separador Floral -->
-            <div class="flex justify-center my-8 opacity-50">
-                <i class="fa-solid fa-leaf text-gold-theme"></i>
+            <div class="flex justify-center items-center gap-3 my-8 opacity-80 reveal reveal-scale">
+                <span class="w-12 h-[1px] bg-gradient-to-r from-transparent to-[#d4be84]"></span>
+                <svg class="w-5 h-5 text-gold-theme" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 2C13.2 5.2 15.5 7.5 18.7 8.7C15.5 9.9 13.2 12.2 12 15.4C10.8 12.2 8.5 9.9 5.3 8.7C8.5 7.5 10.8 5.2 12 2ZM12 17.5C12.6 19.1 13.7 20.2 15.3 20.8C13.7 21.4 12.6 22.5 12 24C11.4 22.5 10.3 21.4 8.7 20.8C10.3 20.2 11.4 19.1 12 17.5Z"/>
+                </svg>
+                <span class="w-12 h-[1px] bg-gradient-to-l from-transparent to-[#d4be84]"></span>
             </div>
 
             <!-- ====== RECEPCIÓN ====== -->
-            <section class="py-12 text-center px-6">
+            <section class="py-12 text-center px-6 reveal reveal-up">
                 <h2 class="script-font text-6xl text-blue-theme mb-6">Recepción</h2>
                 
-                <div class="w-16 h-16 mx-auto border border-gold-theme rounded-full flex items-center justify-center mb-6">
+                <div class="w-16 h-16 mx-auto border border-gold-theme rounded-full flex items-center justify-center mb-6 icon-badge bg-white/80">
                     <i class="fa-solid fa-champagne-glasses text-2xl text-gold-theme"></i>
                 </div>
 
@@ -258,21 +663,25 @@
                     <p class="text-xs mt-2 text-[#87a0b9] leading-relaxed">JF2P+CPH, Zona 10<br>Cdad. de Guatemala 01010</p>
                 </div>
 
-                <a href="https://www.google.com/maps/search/?api=1&query=Restaurante+Los+Cebollines,+Zona+10,+Cdad.+de+Guatemala" target="_blank" class="inline-block bg-transparent border border-gold-theme text-gold-theme px-8 py-3 rounded-full serif-font text-xs tracking-widest uppercase hover:bg-[#d4be84] hover:text-white transition-colors">
+                <a href="https://www.google.com/maps/search/?api=1&query=Restaurante+Los+Cebollines,+Zona+10,+Cdad.+de+Guatemala" target="_blank" class="inline-block bg-transparent border border-gold-theme text-gold-theme px-8 py-3 rounded-full serif-font text-xs tracking-widest uppercase hover:bg-[#d4be84] hover:text-white transition-all duration-300 hover:shadow-md">
                     Abrir Mapa <i class="fa-solid fa-map-location-dot ml-2"></i>
                 </a>
             </section>
 
             <!-- Separador Floral -->
-            <div class="flex justify-center my-8 opacity-50">
-                <i class="fa-solid fa-leaf text-gold-theme"></i>
+            <div class="flex justify-center items-center gap-3 my-8 opacity-80 reveal reveal-scale">
+                <span class="w-12 h-[1px] bg-gradient-to-r from-transparent to-[#d4be84]"></span>
+                <svg class="w-5 h-5 text-gold-theme" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 2C13.2 5.2 15.5 7.5 18.7 8.7C15.5 9.9 13.2 12.2 12 15.4C10.8 12.2 8.5 9.9 5.3 8.7C8.5 7.5 10.8 5.2 12 2ZM12 17.5C12.6 19.1 13.7 20.2 15.3 20.8C13.7 21.4 12.6 22.5 12 24C11.4 22.5 10.3 21.4 8.7 20.8C10.3 20.2 11.4 19.1 12 17.5Z"/>
+                </svg>
+                <span class="w-12 h-[1px] bg-gradient-to-l from-transparent to-[#d4be84]"></span>
             </div>
 
             <!-- ====== REGALO ====== -->
-            <section class="py-12 text-center px-6">
+            <section class="py-12 text-center px-6 reveal reveal-up">
                 <h2 class="script-font text-6xl text-blue-theme mb-6">Mesa de Regalos</h2>
                 
-                <div class="w-16 h-16 mx-auto border border-gold-theme rounded-full flex items-center justify-center mb-6">
+                <div class="w-16 h-16 mx-auto border border-gold-theme rounded-full flex items-center justify-center mb-6 icon-badge bg-white/80">
                     <i class="fa-solid fa-envelope text-2xl text-gold-theme"></i>
                 </div>
 
@@ -283,7 +692,7 @@
             </section>
 
             <!-- ====== RSVP / DESPEDIDA ====== -->
-            <section class="py-16 text-center px-6 pb-32">
+            <section class="py-16 text-center px-6 pb-32 reveal reveal-up">
                 <div class="script-font text-2xl text-blue-theme mb-4">
                     Rsvp: (55) 1234-5678
                 </div>
@@ -292,7 +701,7 @@
                     ¡Te esperamos!
                 </div>
 
-                <button onclick="abrirModal()" class="btn-confirm relative z-20 uppercase tracking-widest text-xs px-8 py-4">Confirmar Asistencia</button>
+                <button onclick="abrirModal()" class="btn-confirm relative z-20 uppercase tracking-widest text-xs px-8 py-4 cursor-pointer">Confirmar Asistencia</button>
             </section>
 
         </div>
@@ -303,57 +712,90 @@
         <source src="source/cancion.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Botón Flotante de Música -->
-    <button onclick="toggleMusic(event)" class="fixed bottom-6 right-6 w-12 h-12 bg-white border border-[#5a7fa4] text-[#5a7fa4] rounded-full shadow-lg flex items-center justify-center z-50 hover:bg-gray-50 transition-all">
+    <!-- Botón Flotante de Música (Oculto inicialmente hasta que se abra el sobre) -->
+    <button id="floating-music-btn" onclick="toggleMusic(event)" class="fixed bottom-6 right-6 w-12 h-12 bg-white border border-[#5a7fa4] text-[#5a7fa4] rounded-full shadow-lg flex items-center justify-center z-50 hover:bg-gray-50 transition-all duration-500 opacity-0 pointer-events-none translate-y-4">
         <i id="music-btn-icon" class="fa-solid fa-volume-xmark text-lg"></i>
     </button>
 
-    <!-- Modal de Confirmación -->
-    <div id="modalConfirmacion" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center backdrop-blur-sm transition-opacity">
-        <div class="bg-white w-11/12 max-w-md rounded-2xl shadow-2xl p-8 relative border-2 border-gold-theme">
-            <button onclick="cerrarModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
-                <i class="fa-solid fa-times text-xl"></i>
+    <!-- Modal de Confirmación con Buscador Interactivo -->
+    <div id="modalConfirmacion" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center backdrop-blur-sm transition-opacity p-4">
+        <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl p-6 sm:p-8 relative border-2 border-gold-theme">
+            <button onclick="cerrarModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer">
+                <i class="fa-solid fa-times text-lg"></i>
             </button>
             
-            <h3 class="script-font text-4xl mb-2 text-center text-blue-theme">Confirmar Asistencia</h3>
-            <p class="text-sm text-gray-500 text-center mb-6 font-light">Busca tu nombre en la lista de invitados</p>
+            <h3 class="script-font text-4xl mb-1 text-center text-blue-theme">Confirmar Asistencia</h3>
+            <p class="text-xs sm:text-sm text-gray-500 text-center mb-5 font-light">Escribe tu nombre o selecciónalo en la lista interactiva</p>
 
-            <!-- Paso 1 -->
+            <!-- Paso 1: Buscador Interactivo en Tiempo Real -->
             <div id="paso-busqueda">
-                <input type="text" id="inputBusqueda" placeholder="Ej. Familia García" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-1 focus:ring-[#5a7fa4] focus:border-[#5a7fa4] outline-none transition-all mb-3 font-light text-gray-700">
-                <button onclick="buscarInvitado()" class="w-full bg-[#5a7fa4] hover:bg-[#486989] text-white py-3 rounded-lg transition-colors serif-font text-xs tracking-widest uppercase">Buscar Invitación</button>
-                <div id="mensaje-error" class="text-red-400 text-sm mt-3 text-center hidden">No se encontró ninguna invitación con ese nombre.</div>
-                
-                <!-- Resultados Múltiples -->
-                <div id="lista-resultados" class="mt-4 flex flex-col gap-2 max-h-48 overflow-y-auto hidden scrollbar-thin"></div>
-            </div>
+                <div class="relative mb-3">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-[#87a0b9] text-sm pointer-events-none"></i>
+                    <input
+                        type="text"
+                        id="inputBusqueda"
+                        autocomplete="off"
+                        oninput="filtrarInvitadosInteractivo()"
+                        placeholder="Escribe tu nombre o apellido..."
+                        class="w-full pl-10 pr-9 py-3 rounded-xl border border-gold-theme/70 focus:ring-2 focus:ring-[#5a7fa4]/30 focus:border-[#5a7fa4] outline-none transition-all font-light text-sm text-gray-700 bg-[#fdfbf7]/60"
+                    >
+                    <button
+                        id="btn-limpiar-busqueda"
+                        type="button"
+                        onclick="limpiarBusqueda()"
+                        class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 cursor-pointer"
+                        title="Limpiar búsqueda"
+                    >
+                        <i class="fa-solid fa-circle-xmark text-sm"></i>
+                    </button>
+                </div>
 
-            <!-- Paso 2 -->
-            <div id="paso-confirmacion" class="hidden">
-                <div class="bg-blue-50/50 p-4 rounded-lg border border-blue-100 mb-4 text-center">
-                    <p class="text-gray-500 text-sm mb-1">Invitación para:</p>
-                    <p id="nombre-encontrado" class="script-font text-3xl text-blue-theme mb-2"></p>
-                    <p class="text-sm text-gray-500">Pases asignados: <span id="pases-totales" class="font-bold text-blue-theme"></span></p>
+                <!-- Contador / Estado de resultados -->
+                <div class="flex items-center justify-between px-1 mb-2">
+                    <span id="contador-resultados" class="serif-font text-[10px] tracking-widest uppercase text-[#87a0b9]">Lista de invitados</span>
+                    <span class="text-[11px] text-gold-theme italic">Toca tu nombre para continuar</span>
+                </div>
+
+                <!-- Mensaje cuando no hay coincidencias -->
+                <div id="mensaje-error" class="text-red-400 text-xs sm:text-sm py-6 px-4 text-center hidden bg-red-50/50 rounded-xl border border-red-100">
+                    <i class="fa-regular fa-face-frown text-lg block mb-1"></i>
+                    No encontramos ninguna invitación con ese nombre. Intenta buscando solo por un apellido o nombre.
                 </div>
                 
-                <div class="mb-4">
-                    <label class="block text-sm text-gray-600 mb-2">¿Cuántas personas asistirán?</label>
-                    <select id="select-asistentes" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-1 focus:ring-[#5a7fa4] outline-none font-light text-gray-700 bg-white">
+                <!-- Lista Interactiva de Resultados -->
+                <div id="lista-resultados" class="flex flex-col gap-2 max-h-60 overflow-y-auto pr-1"></div>
+            </div>
+
+            <!-- Paso 2: Confirmación de Pases -->
+            <div id="paso-confirmacion" class="hidden">
+                <div class="bg-[#fdfbf7] p-4 rounded-xl border border-gold-theme/60 mb-4 text-center shadow-sm">
+                    <p class="serif-font text-[10px] tracking-widest uppercase text-[#87a0b9] mb-1">Invitación asignada a</p>
+                    <p id="nombre-encontrado" class="script-font text-3xl text-blue-theme mb-1"></p>
+                    <div class="w-10 h-[1px] bg-gold-theme mx-auto my-2"></div>
+                    <p class="text-xs text-gray-600 serif-font tracking-wider uppercase">Pases disponibles: <span id="pases-totales" class="font-bold text-blue-theme"></span></p>
+                </div>
+                
+                <div class="mb-5">
+                    <label class="block text-sm text-gray-600 mb-2 font-medium">¿Cuántas personas asistirán?</label>
+                    <select id="select-asistentes" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#5a7fa4]/30 focus:border-[#5a7fa4] outline-none font-light text-sm text-gray-700 bg-white cursor-pointer">
                     </select>
                 </div>
 
-                <div class="flex gap-2">
-                    <button onclick="volverBusqueda()" class="w-1/3 border border-gray-300 text-gray-600 py-3 rounded-lg hover:bg-gray-50 transition-colors serif-font text-xs tracking-widest uppercase">Cancelar</button>
-                    <button onclick="enviarConfirmacion()" class="w-2/3 bg-gold-theme hover:bg-[#c2aa5b] text-white py-3 rounded-lg transition-colors serif-font text-xs tracking-widest uppercase">Confirmar</button>
+                <div class="flex gap-2.5">
+                    <button onclick="volverBusqueda()" class="w-2/5 border border-gray-300 text-gray-600 py-3 rounded-xl hover:bg-gray-50 transition-colors serif-font text-xs tracking-widest uppercase cursor-pointer">Cambiar</button>
+                    <button onclick="enviarConfirmacion()" class="w-3/5 bg-[#5a7fa4] hover:bg-[#486989] text-white py-3 rounded-xl transition-colors serif-font text-xs tracking-widest uppercase shadow-md cursor-pointer flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-base text-gold-theme"></i>
+                        <span>Confirmar</span>
+                    </button>
                 </div>
             </div>
 
-            <!-- Paso 3 -->
+            <!-- Paso 3: Éxito -->
             <div id="paso-exito" class="hidden text-center py-6">
                 <i class="fa-solid fa-circle-check text-5xl text-[#5a7fa4] mb-4"></i>
                 <h4 class="serif-font text-xl font-medium text-blue-theme mb-2">¡Gracias por confirmar!</h4>
                 <p class="text-gray-500 font-light text-sm mb-6">Te esperamos para celebrar este gran día.</p>
-                <button onclick="cerrarModal()" class="bg-[#5a7fa4] hover:bg-[#486989] text-white px-8 py-3 rounded-lg serif-font text-xs tracking-widest uppercase transition-colors">Cerrar</button>
+                <button onclick="cerrarModal()" class="bg-[#5a7fa4] hover:bg-[#486989] text-white px-8 py-3 rounded-xl serif-font text-xs tracking-widest uppercase transition-colors cursor-pointer">Cerrar</button>
             </div>
         </div>
     </div>
@@ -362,8 +804,10 @@
     <script src="invitados.js"></script>
 
     <script>
-        // --- LÓGICA DEL MODAL ---
-        let listaInvitados = invitadosData || []; // Cargado desde invitados.js
+        // --- LÓGICA DEL MODAL Y BUSCADOR INTERACTIVO DE INVITADOS ---
+        let listaInvitados = (typeof invitadosData !== 'undefined' && Array.isArray(invitadosData))
+            ? [...invitadosData].sort((a, b) => a.nombre.localeCompare(b.nombre, 'es'))
+            : [];
         let invitadoActual = null;
 
         const modal = document.getElementById('modalConfirmacion');
@@ -371,44 +815,110 @@
         const pasoConfirmacion = document.getElementById('paso-confirmacion');
         const pasoExito = document.getElementById('paso-exito');
         const inputBusqueda = document.getElementById('inputBusqueda');
+        const btnLimpiarBusqueda = document.getElementById('btn-limpiar-busqueda');
+        const contadorResultados = document.getElementById('contador-resultados');
         const mensajeError = document.getElementById('mensaje-error');
         const listaResultados = document.getElementById('lista-resultados');
 
-        function abrirModal() { modal.classList.remove('hidden'); volverBusqueda(); }
-        function cerrarModal() { modal.classList.add('hidden'); }
+        function abrirModal() {
+            modal.classList.remove('hidden');
+            volverBusqueda();
+            setTimeout(() => {
+                if (inputBusqueda) inputBusqueda.focus();
+            }, 100);
+        }
 
-        // Función para quitar acentos y hacer la búsqueda más tolerante
+        function cerrarModal() {
+            modal.classList.add('hidden');
+        }
+
         function normalizarTexto(texto) {
-            return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+            return (texto || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+        }
+
+        function limpiarBusqueda() {
+            if (inputBusqueda) {
+                inputBusqueda.value = '';
+                inputBusqueda.focus();
+            }
+            filtrarInvitadosInteractivo();
+        }
+
+        function renderizarListaInvitados(resultados, terminoRaw) {
+            listaResultados.innerHTML = '';
+
+            if (resultados.length === 0) {
+                mensajeError.classList.remove('hidden');
+                listaResultados.classList.add('hidden');
+                if (contadorResultados) {
+                    contadorResultados.textContent = '0 coincidencias';
+                }
+                return;
+            }
+
+            mensajeError.classList.add('hidden');
+            listaResultados.classList.remove('hidden');
+
+            if (contadorResultados) {
+                contadorResultados.textContent = terminoRaw
+                    ? `${resultados.length} coincidencia${resultados.length === 1 ? '' : 's'}`
+                    : `Todos los invitados (${resultados.length})`;
+            }
+
+            resultados.forEach(invitado => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = "w-full text-left px-4 py-3 bg-[#fdfbf7] hover:bg-blue-50/70 border border-gold-theme/40 hover:border-[#5a7fa4]/60 rounded-xl transition-all duration-200 flex items-center justify-between group cursor-pointer shadow-sm";
+
+                const infoDiv = document.createElement('div');
+                infoDiv.className = "flex flex-col pr-2";
+
+                const nameSpan = document.createElement('span');
+                nameSpan.className = "text-sm font-medium text-[#5a7fa4] group-hover:text-[#486989]";
+                nameSpan.textContent = invitado.nombre;
+
+                const passesSpan = document.createElement('span');
+                passesSpan.className = "text-[11px] text-[#87a0b9]";
+                passesSpan.textContent = `${invitado.pases_totales} pase${invitado.pases_totales > 1 ? 's' : ''} disponible${invitado.pases_totales > 1 ? 's' : ''}`;
+
+                infoDiv.appendChild(nameSpan);
+                infoDiv.appendChild(passesSpan);
+
+                const arrowIcon = document.createElement('i');
+                arrowIcon.className = "fa-solid fa-chevron-right text-xs text-gold-theme group-hover:translate-x-1 transition-transform";
+
+                btn.appendChild(infoDiv);
+                btn.appendChild(arrowIcon);
+                btn.onclick = () => seleccionarInvitado(invitado);
+                listaResultados.appendChild(btn);
+            });
+        }
+
+        function filtrarInvitadosInteractivo() {
+            const rawValue = inputBusqueda ? inputBusqueda.value : '';
+            const busqueda = normalizarTexto(rawValue);
+
+            if (btnLimpiarBusqueda) {
+                btnLimpiarBusqueda.classList.toggle('hidden', rawValue.trim().length === 0);
+            }
+
+            if (!busqueda) {
+                renderizarListaInvitados(listaInvitados, '');
+                return;
+            }
+
+            // Soportar búsqueda por múltiples palabras en cualquier orden (ej. "lopez paco", "garcia")
+            const palabras = busqueda.split(/\s+/).filter(Boolean);
+            const resultados = listaInvitados.filter(invitado => {
+                const nombreNorm = normalizarTexto(invitado.nombre);
+                return palabras.every(palabra => nombreNorm.includes(palabra));
+            });
+
+            renderizarListaInvitados(resultados, rawValue.trim());
         }
 
         function buscarInvitado() {
-            const busqueda = normalizarTexto(inputBusqueda.value);
-            if (!busqueda) return;
-
-            // Filtrar todos los que coincidan
-            const resultados = listaInvitados.filter(invitado => 
-                normalizarTexto(invitado.nombre).includes(busqueda)
-            );
-
-            listaResultados.innerHTML = '';
-
-            if (resultados.length > 0) {
-                mensajeError.classList.add('hidden');
-                listaResultados.classList.remove('hidden');
-
-                // Crear un botón por cada resultado
-                resultados.forEach(invitado => {
-                    const btn = document.createElement('button');
-                    btn.className = "w-full text-left px-4 py-3 bg-blue-50/40 hover:bg-blue-100/60 border border-blue-100 rounded-lg text-sm text-[#5a7fa4] transition-colors";
-                    btn.textContent = invitado.nombre;
-                    btn.onclick = () => seleccionarInvitado(invitado);
-                    listaResultados.appendChild(btn);
-                });
-            } else {
-                mensajeError.classList.remove('hidden');
-                listaResultados.classList.add('hidden');
-            }
+            filtrarInvitadosInteractivo();
         }
 
         function seleccionarInvitado(invitado) {
@@ -434,11 +944,10 @@
             pasoBusqueda.classList.remove('hidden');
             pasoConfirmacion.classList.add('hidden');
             pasoExito.classList.add('hidden');
-            inputBusqueda.value = '';
-            mensajeError.classList.add('hidden');
-            listaResultados.classList.add('hidden');
-            listaResultados.innerHTML = '';
+            if (inputBusqueda) inputBusqueda.value = '';
+            if (btnLimpiarBusqueda) btnLimpiarBusqueda.classList.add('hidden');
             invitadoActual = null;
+            filtrarInvitadosInteractivo();
         }
 
         function enviarConfirmacion() {
@@ -453,16 +962,17 @@
             } else {
                 mensaje = `¡Hola! Soy ${invitadoActual.nombre}. Confirmo mi asistencia a los XV años de María José para ${asisten} persona(s).`;
             }
-            // Cambia este número por el tuyo. Ej: 502 (Guatemala) seguido del número
             const numeroWhatsApp = "50255844677"; 
             const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
             window.open(url, '_blank');
         }
 
-        // --- LÓGICA DE MÚSICA Y BIENVENIDA ---
+        // --- LÓGICA DE MÚSICA Y APERTURA DEL SOBRE ---
         const bgMusic = document.getElementById('bg-music');
         const musicBtnIcon = document.getElementById('music-btn-icon');
+        const floatingMusicBtn = document.getElementById('floating-music-btn');
         let isPlaying = false;
+        let envelopeOpened = false;
 
         function reproducirMusica() {
             if (!bgMusic) return;
@@ -481,20 +991,50 @@
         }
 
         function abrirInvitacion() {
-            // Iniciar música con el gesto del usuario
+            if (envelopeOpened) return;
+            envelopeOpened = true;
+
+            // 1. Iniciar música inmediatamente con el clic en el botón del sobre
             reproducirMusica();
 
-            // Habilitar el scroll en el body
-            document.body.classList.remove('overflow-hidden');
-
-            // Animar y ocultar la pantalla de bienvenida
             const welcome = document.getElementById('welcome-screen');
-            if (welcome) {
-                welcome.classList.add('opacity-0', 'scale-105', 'pointer-events-none');
-                setTimeout(() => {
-                    welcome.style.display = 'none';
-                }, 750);
+            const envelopeWrapper = document.getElementById('envelope-wrapper');
+            const welcomeHeader = document.getElementById('welcome-header');
+            const mainInvitation = document.getElementById('main-invitation');
+
+            // 2. Abrir solapa del sobre en 3D y deslizar la carta hacia afuera
+            if (welcomeHeader) {
+                welcomeHeader.classList.add('opacity-0', '-translate-y-4');
             }
+            if (envelopeWrapper) {
+                envelopeWrapper.classList.add('is-opening');
+            }
+
+            // 3. Hacer que la carta emergente se expanda como convirtiéndose en la página
+            setTimeout(() => {
+                if (envelopeWrapper) {
+                    envelopeWrapper.classList.add('is-expanding');
+                }
+                if (mainInvitation) {
+                    mainInvitation.classList.remove('invitation-pre-open');
+                    mainInvitation.classList.add('invitation-emerging');
+                }
+                if (welcome) {
+                    welcome.classList.add('opacity-0', 'pointer-events-none');
+                }
+                initScrollReveal();
+            }, 1250);
+
+            // 4. Desbloquear scroll, ocultar pantalla de sobre y mostrar botón flotante de música
+            setTimeout(() => {
+                document.body.classList.remove('overflow-hidden');
+                if (welcome) {
+                    welcome.style.display = 'none';
+                }
+                if (floatingMusicBtn) {
+                    floatingMusicBtn.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+                }
+            }, 1950);
         }
 
         function toggleMusic(e) {
@@ -509,28 +1049,100 @@
                 }
                 isPlaying = false;
             } else {
-                const playPromise = bgMusic.play();
-                if (playPromise !== undefined) {
-                    playPromise.then(() => {
-                        isPlaying = true;
-                        if (musicBtnIcon) {
-                            musicBtnIcon.classList.remove('fa-volume-xmark');
-                            musicBtnIcon.classList.add('fa-music', 'animate-pulse');
-                        }
-                    }).catch(error => console.log("Bloqueado por navegador:", error));
-                }
-            }
-        }
-
-        // Respaldo de interacción por si el usuario toca la pantalla
-        function fallbackAudio(e) {
-            if (e && e.target && e.target.closest('button[onclick="toggleMusic(event)"]')) return;
-            if (!isPlaying) {
                 reproducirMusica();
             }
         }
-        document.addEventListener('click', fallbackAudio, { once: true });
-        document.addEventListener('touchend', fallbackAudio, { once: true });
+
+        // --- CONTADOR REGRESIVO HACIA EL 22 DE NOVIEMBRE 5:00 PM ---
+        function iniciarContador() {
+            const eventDate = new Date(2026, 10, 22, 17, 0, 0).getTime(); // Mes 10 = Noviembre
+
+            function actualizar() {
+                const now = new Date().getTime();
+                const diff = eventDate - now;
+
+                const daysEl = document.getElementById('cd-days');
+                const hoursEl = document.getElementById('cd-hours');
+                const minutesEl = document.getElementById('cd-minutes');
+                const secondsEl = document.getElementById('cd-seconds');
+
+                if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
+
+                if (diff <= 0) {
+                    daysEl.textContent = "00";
+                    hoursEl.textContent = "00";
+                    minutesEl.textContent = "00";
+                    secondsEl.textContent = "00";
+                    return;
+                }
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                daysEl.textContent = String(days).padStart(2, '0');
+                hoursEl.textContent = String(hours).padStart(2, '0');
+                minutesEl.textContent = String(minutes).padStart(2, '0');
+                secondsEl.textContent = String(seconds).padStart(2, '0');
+            }
+
+            actualizar();
+            setInterval(actualizar, 1000);
+        }
+
+        // --- ANIMACIONES AL HACER SCROLL (INTERSECTION OBSERVER) ---
+        function initScrollReveal() {
+            const revealElements = document.querySelectorAll('.reveal');
+            if (!('IntersectionObserver' in window)) {
+                revealElements.forEach(el => el.classList.add('is-visible'));
+                return;
+            }
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, {
+                threshold: 0.14,
+                rootMargin: '0px 0px -30px 0px'
+            });
+
+            revealElements.forEach(el => observer.observe(el));
+        }
+
+        // --- PARTÍCULAS DORADAS FLOTANDO ---
+        function poblarDestellos(containerId, cantidad) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            for (let i = 0; i < cantidad; i++) {
+                const sparkle = document.createElement('span');
+                sparkle.className = 'sparkle-particle';
+                const size = (Math.random() * 5 + 3).toFixed(1);
+                const left = (Math.random() * 94 + 3).toFixed(1);
+                const top = (Math.random() * 96 + 2).toFixed(1);
+                const duration = (Math.random() * 5 + 5).toFixed(1);
+                const delay = (Math.random() * 6).toFixed(1);
+
+                sparkle.style.width = `${size}px`;
+                sparkle.style.height = `${size}px`;
+                sparkle.style.left = `${left}%`;
+                sparkle.style.top = `${top}%`;
+                sparkle.style.animationDuration = `${duration}s`;
+                sparkle.style.animationDelay = `${delay}s`;
+
+                container.appendChild(sparkle);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            iniciarContador();
+            poblarDestellos('welcome-sparkles', 16);
+            poblarDestellos('sparkles-container', 28);
+        });
     </script>
 </body>
 </html>

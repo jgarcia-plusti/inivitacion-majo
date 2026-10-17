@@ -19,7 +19,6 @@ const invitadosData = [
   { "id": "fam-say-muralles", "nombre": "Familia Say Muralles", "pases_totales": 5, "confirmed":"false" },
   { "id": "fam-orozco-monterroso", "nombre": "Familia Orozco Monterroso", "pases_totales": 5, "confirmed":"false" },
   { "id": "maria-jose-rivera", "nombre": "Maria Jose Rivera Garcia", "pases_totales": 1, "confirmed":"false" },
-  { "id": "mariita-casa", "nombre": "Mariita casa alquilan", "pases_totales": 3, "confirmed":"false" },
   { "id": "fam-perez-perez", "nombre": "Familia Perez Perez", "pases_totales": 3, "confirmed":"false" },
   { "id": "vilma-perez", "nombre": "Vilma Perez", "pases_totales": 1, "confirmed":"false" },
   { "id": "katherin-contreras", "nombre": "Katherin Contreras", "pases_totales": 2, "confirmed":"false" },

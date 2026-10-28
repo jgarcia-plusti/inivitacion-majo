@@ -6,5 +6,7 @@ const invitadosData = [
   { "id": "maria-jose-rivera", "nombre": "Maria Jose Rivera Garcia", "pases_totales": 1, "confirmed":"false" },
   { "id": "vilma-perez", "nombre": "Vilma Perez", "pases_totales": 1, "confirmed":"false" },
   { "id": "odilia-martinez", "nombre": "Odilia Martinez", "pases_totales": 1, "confirmed":"false" },
-  { "id": "rebeca-hernandez", "nombre": "Rebeca Hernandez", "pases_totales": 1, "confirmed":"false" }
+  { "id": "rebeca-hernandez", "nombre": "Rebeca Hernandez", "pases_totales": 1, "confirmed":"false" },
+  { "id": "fam-martinez-pardo", "nombre": "Familia Martinez Pardo", "pases_totales": 4, "confirmed":"false" },
+  { "id": "pastora-aracely-martinez", "nombre": "Pastora Aracely de Martinez", "pases_totales": 1, "confirmed":"false" }
 ];
